@@ -1,0 +1,22 @@
+version: '3'
+services:
+  goizedb:
+      image: mariadb
+      container_name: goizedb
+      volumes:
+          - ./.db_files:/var/lib/mysql
+      networks:
+          - izenet
+      env_file:
+          - ../../.env  # load development env file
+      environment:
+          - MYSQL_ROOT_HOST=${DB_HOST}
+          - MYSQL_USER=${DB_USER}
+          - MYSQL_PASSWORD=${DB_PASSWORD}
+          - MYSQL_DATABASE=${DB_NAME}
+          - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      ports:
+          - 3306:3306
+networks:
+    izenet:
+        driver: bridge
